@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root{
+  --bg: #0f1724;          /* dark navy */
+  --panel: #ffffff;       /* panel text/background base */
+  --card-bg: #0f2448;     /* deep royal blue */
+  --accent: #d4af37;      /* gold accent */
+  --muted: rgba(255,255,255,0.78);
+  --glass: rgba(255,255,255,0.03);
+  --shadow: rgba(2,6,23,0.6);
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: 'Roboto', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(180deg, var(--bg) 0%, #081226 100%);
+}
+
+/* center page */
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+}
+
+/* card */
+.container {
+  width: min(92%, 760px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: var(--radius);
+  padding: 36px;
+  box-shadow: 0 18px 40px var(--shadow), inset 0 1px 0 rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px 28px;
+  align-items: center;
+}
+
+/* heading */
+.container h3 {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 1.4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* small underline */
+.container h3::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 4px;
+  margin-top: 10px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(212,175,55,0.95), rgba(212,175,55,0.6));
+}
+
+/* joke area: readable, simple */
+#joke.joke {
+  grid-column: 1 / -1;
+  min-height: 110px;
+  padding: 24px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(15,36,72,0.95), rgba(8,18,38,0.85));
+  color: #fff;
+  font-size: clamp(16px, 2.4vw, 26px);
+  line-height: 1.45;
+  text-align: left;
+  max-width: 100%;
+  box-shadow: 0 8px 22px rgba(2,6,23,0.5);
+  border: 1px solid rgba(255,255,255,0.03);
+  display: flex;
+  align-items: center;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  white-space: pre-wrap;
+}
+
+/* subtle loading pulse */
+#joke.joke.loading {
+  animation: subtlePulse 1.4s ease-in-out infinite;
+}
+@keyframes subtlePulse {
+  0% { box-shadow: 0 8px 22px rgba(2,6,23,0.45); transform: translateY(0); }
+  50% { box-shadow: 0 14px 28px rgba(2,6,23,0.55); transform: translateY(-3px); }
+  100% { box-shadow: 0 8px 22px rgba(2,6,23,0.45); transform: translateY(0); }
+}
+
+/* button */
+#joke-btn.btn {
+  grid-row: 1 / 3;
+  justify-self: end;
+  align-self: center;
+  min-width: 160px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(212,175,55,0.98), rgba(189,151,48,0.95));
+  color: #071021;
+  border: none;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(13,18,34,0.45);
+  transition: transform 160ms cubic-bezier(.2,.9,.2,1), box-shadow 160ms;
+}
+
+/* icon-like pseudo for subtle flair (keeps no extra actual emoji if undesired) */
+#joke-btn.btn::before {
+  content: "⟳";
+  margin-right: 8px;
+  opacity: 0.9;
+}
+
+/* hover / active */
+#joke-btn.btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgba(13,18,34,0.5);
+}
+#joke-btn.btn:active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* responsive: stack button below on small screens */
+@media (max-width: 640px) {
+  .container {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+  #joke-btn.btn {
+    grid-row: 3;
+    width: 100%;
+    justify-self: stretch;
+    min-width: 0;
+  }
+  #joke.joke {
+    padding: 18px;
+    font-size: 18px;
+  }
+}
+
+/* selection highlight */
+#joke.joke ::selection {
+  background: rgba(212,175,55,0.18);
+}
+
+/* reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
